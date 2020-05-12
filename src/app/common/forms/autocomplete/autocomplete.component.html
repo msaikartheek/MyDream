@@ -1,0 +1,61 @@
+<!-- <form class="example-form">
+    <mat-form-field class="example-full-width">
+        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl"
+            [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let option of listOfItems" [value]="option.orgName">
+                {{option.orgName}}
+            </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+</form> -->
+<mat-card>
+    <table mat-table [dataSource]="listOfItems" class="mat-elevation-z8">
+        <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+            <div *ngIf="column !== 'members'">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element">
+                    {{element[column]}}
+                </td>
+            </div>
+            <div *ngIf="column === 'members'">
+                <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+                <td mat-cell *matCellDef="let element">
+                    <ul>
+                        <li *ngFor="let member of element[column]">
+                            {{member}}
+                        </li>
+                    </ul>
+                </td>
+            </div>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editDetails(row,'edit')"></tr>
+    </table>
+</mat-card>
+
+<!-- keep it it is inline edit for  material table 
+      <ng-template #editTemplate>
+      <form [formGroup]= "editForm" (submit)="onEdit()">
+        <table mat-table [dataSource]="listOfItems" class="mat-elevation-z8">
+            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+              <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+              <td mat-cell *matCellDef="let element; let i = index"> 
+                   <div *ngIf = "this.index === i">
+                     <app-common-forms [formElements]="formElements" [countries] = "countries" [form]= "editForm"></app-common-forms>
+                    <mat-form-field apperance="standard">
+                   <input type="text" matInput formControlName = "{{column}}">
+                   </mat-form-field>
+                   </div>
+                  <div *ngIf =  "this.index !== i">
+                    {{element[column]}}
+                    </div>
+                 </td> 
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          </form>
+      
+      </ng-template> -->

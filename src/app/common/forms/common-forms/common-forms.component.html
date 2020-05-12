@@ -1,0 +1,41 @@
+<div [formGroup]="form">
+    <div *ngFor="let formElement of formElements">
+        <div [ngSwitch]="formElement.type">
+            <div *ngSwitchCase="'text'">
+                <mat-form-field appearance="standard">
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <input type="text" matInput formControlName="{{formElement.label}}">
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'textarea'">
+                <mat-form-field appearance="standard">
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <textarea type="text" matInput formControlName="{{formElement.label}}"></textarea>
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'select'">
+                <mat-form-field>
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <mat-select formControlName="{{formElement.label}}" multiple>
+                        <mat-option *ngFor="let country of countries" [value]="country.name">
+                            <!-- <img class="example-option-img" aria-hidden [src]="country.file_url" height="25"> -->
+                            {{country.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'number'">
+                <mat-form-field>
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <input type="number" matInput formControlName="{{formElement.label}}">
+                </mat-form-field>
+            </div>
+            <!-- <input *ngSwitchCase="'text'" formControlName="formElements.type"> -->
+
+            <!-- <select [id]="formElements.type" *ngSwitchCase="'dropdown'" [formControlName]="formElements.type">
+                <option *ngFor="let opt of formElements.options" [value]="opt.type">{{opt.value}}</option>
+            </select> -->
+
+
+        </div>
+    </div>
+</div>
