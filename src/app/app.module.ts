@@ -15,6 +15,7 @@ import { AutocompleteComponent } from './common/forms/autocomplete/autocomplete.
 import { DialogBoxesComponent } from './common/dialog/dialog-boxes/dialog-boxes.component';
 import { DaysandThemeComponent } from './daysand-theme/daysand-theme.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,6 +25,7 @@ import { DaysandThemeComponent } from './daysand-theme/daysand-theme.component';
     AutocompleteComponent,
     DialogBoxesComponent,
     DaysandThemeComponent,
+
   ],
   imports: [
     BrowserModule, HttpClientModule,

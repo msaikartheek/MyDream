@@ -29,6 +29,31 @@
                     <input type="number" matInput formControlName="{{formElement.label}}">
                 </mat-form-field>
             </div>
+            <div *ngSwitchCase="'tel'">
+                <mat-form-field>
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <input type="tel" matInput formControlName="{{formElement.label}}">
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'email'">
+                <mat-form-field>
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <input type="email" matInput formControlName="{{formElement.label}}">
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'date'">
+                <mat-form-field>
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <input type="date" matInput formControlName="{{formElement.label}}">
+                </mat-form-field>
+            </div>
+            <div *ngSwitchCase="'pass'">
+                <mat-form-field>
+                    <mat-label>{{formElement.matLabelName}}</mat-label>
+                    <input type="password" matInput formControlName="{{formElement.label}}">
+                </mat-form-field>
+            </div>
+
             <!-- <input *ngSwitchCase="'text'" formControlName="formElements.type"> -->
 
             <!-- <select [id]="formElements.type" *ngSwitchCase="'dropdown'" [formControlName]="formElements.type">

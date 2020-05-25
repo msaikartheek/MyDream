@@ -9,8 +9,13 @@
         </mat-autocomplete>
     </mat-form-field>
 </form> -->
-<mat-card>
-    <table mat-table [dataSource]="listOfItems" class="mat-elevation-z8">
+
+<!-- <mat-card> -->
+    <mat-form-field>
+        <mat-label>Filter</mat-label>
+        <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
         <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
             <div *ngIf="column !== 'members'">
                 <th mat-header-cell *matHeaderCellDef> {{column}} </th>
@@ -29,10 +34,16 @@
                 </td>
             </div>
         </ng-container>
+        <div *ngIf = "!isAuthorised">
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editDetails(row,'edit')"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </div>
+        <div *ngIf = "isAuthorised">
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editDetails(row,'edit')"></tr>
+        </div>
     </table>
-</mat-card>
+<!-- </mat-card> -->
 
 <!-- keep it it is inline edit for  material table 
       <ng-template #editTemplate>

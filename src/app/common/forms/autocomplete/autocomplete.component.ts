@@ -1,12 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { startWith, map } from 'rxjs/operators';
+import { startWith, map, filter } from 'rxjs/operators';
 import { CommonMethodService } from '../../services/common-method.service';
 import { DialogBoxesComponent } from '../../dialog/dialog-boxes/dialog-boxes.component';
 import { MatDialog } from '@angular/material/dialog';
 import { OrganisationsService } from '../../services/organisations.service';
 import { DayThemeService } from '../../services/day-theme.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { isUndefined, isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-autocomplete',
@@ -14,8 +16,7 @@ import { DayThemeService } from '../../services/day-theme.service';
   styleUrls: ['./autocomplete.component.css']
 })
 export class AutocompleteComponent implements OnInit {
-  constructor(private _commonMethoService: CommonMethodService, private _dialog: MatDialog,
-    private _totalOrgs: OrganisationsService, private _dayTheme: DayThemeService) { }
+  dataSource: MatTableDataSource<any>;
   displayedColumns: any;
   action: String;
   index: number;
@@ -26,14 +27,25 @@ export class AutocompleteComponent implements OnInit {
   @Input() countries: any;
   filteredOptions: Observable<string[]>;
   editForm: FormGroup;
+  isAuthorised:boolean= false;
+
+  constructor(private _commonMethoService: CommonMethodService, private _dialog: MatDialog,
+    private _totalOrgs: OrganisationsService, private _dayTheme: DayThemeService) { }
+
 
   ngOnInit(): void {
+    this.dataSource = this.listOfItems;
+    console.log(this.listOfItems);
     this.displayedColumns = this.displayedColumnsData().filter(r => r !== 'id');
-    this.editForm = this._commonMethoService.getFormData1(this.formElements);
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filter(value)))
+    console.log("form Elements ----- "+this.displayedColumns);
+    if(!isNullOrUndefined(this.formElements)){
+      this.editForm = this._commonMethoService.getFormData1(this.formElements);
+      this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(''),
+          map(value => this._filter(value)))
+    }
+    
   }
 
   private displayedColumnsData() {
@@ -67,6 +79,14 @@ export class AutocompleteComponent implements OnInit {
         this.listOfItems = response;
       })
     });
+  }
+  applyFilter(event: Event) {
+    console.log(event)
+    const filterValue = (event.target as HTMLInputElement).value;
+    console.log(filterValue)
+    this.dataSource = new MatTableDataSource(this.listOfItems);
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    console.log(this.dataSource.filter);
   }
 
 }
