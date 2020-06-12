@@ -1,10 +1,14 @@
 mat-toolbar{
     background: #d2a0a0;
     color: rgba(0,0,0,.87);
+    font-family: cursive;
 }
 
 td , th {
     white-space: normal;
     word-wrap: break-word;
     max-width: 200px;
+    font-family: cursive;
 }
+
+    

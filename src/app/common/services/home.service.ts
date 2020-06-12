@@ -29,7 +29,7 @@ export class HomeService {
       // The response body may contain clues as to what went wrong,
       console.error(
         `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
+        `body was: ${error.error.message}`);
     }
     // return an observable with a user-facing error message
     return throwError(

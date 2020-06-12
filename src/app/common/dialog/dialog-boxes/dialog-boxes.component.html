@@ -1,20 +1,26 @@
-<div *ngIf="action !== 'edit'; else editTemplate">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <app-common-forms [formElements]="allFormElemnts" [countries]="countries" [form]="form"></app-common-forms>
-        <div>
-            <button mat-button color="primary" type="submit">
-                <mat-icon>Save</mat-icon>
-            </button>
-        </div>
-    </form>
-</div>
-<ng-template #editTemplate>
-    <form [formGroup]="editForm" (ngSubmit)="onEdit()">
-        <app-common-forms [formElements]="allFormElemnts" [countries]="countries" [form]="editForm"></app-common-forms>
-        <div>
-            <button mat-button color="primary" type="submit">
-                Update
-            </button>
-        </div>
-    </form>
-</ng-template>
+<h2 mat-dialog-title>{{action}}</h2>
+
+    <div *ngIf="action !== 'Edit'; else editTemplate">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <app-common-forms [formElements]="allFormElemnts" [countries]="countries" [form]="form"></app-common-forms>
+            <div>
+                <button mat-raised-button color="primary" type="submit">
+                    <mat-icon>save</mat-icon>
+                </button>
+                <button mat-raised-button color="warn" type="submit">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </div>
+        </form>
+    </div>
+    <ng-template #editTemplate>
+        <form [formGroup]="editForm" (ngSubmit)="onEdit()">
+            <app-common-forms [formElements]="allFormElemnts" [countries]="countries" [form]="editForm">
+            </app-common-forms>
+            <div>
+                <button mat-raised-button color="primary" type="submit">
+                    <mat-icon>update</mat-icon>
+                </button>
+            </div>
+        </form>
+    </ng-template>

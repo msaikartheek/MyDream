@@ -24,8 +24,8 @@ export class DialogBoxesComponent implements OnInit {
 
     this.allFormElemnts = data['formElements'];
     this.countries = data['countries'];
-
-    if (data['action'] === 'edit') {
+console.log(data)
+    if (data['action'] === 'Edit') {
       this.editForm = data['rowData'];
       this.action = data['action'];
     }

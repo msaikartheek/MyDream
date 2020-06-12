@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit {
   }
   login_Signup() {
     let saveDialog = this._dialog.open(DialogBoxesComponent, {
-      width: '500px',
-      height: '500px',
+      width: 'auto',
+      height: 'auto',
       data: { formElements: this.formElements, countries: "" }
     });
     saveDialog.afterClosed().subscribe((r) => {

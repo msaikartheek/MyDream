@@ -27,7 +27,7 @@ export class AutocompleteComponent implements OnInit {
   @Input() countries: any;
   filteredOptions: Observable<string[]>;
   editForm: FormGroup;
-  isAuthorised:boolean= false;
+  isAuthorised: boolean = false;
 
   constructor(private _commonMethoService: CommonMethodService, private _dialog: MatDialog,
     private _totalOrgs: OrganisationsService, private _dayTheme: DayThemeService) { }
@@ -36,16 +36,17 @@ export class AutocompleteComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = this.listOfItems;
     console.log(this.listOfItems);
-    this.displayedColumns = this.displayedColumnsData().filter(r => r !== 'id');
-    console.log("form Elements ----- "+this.displayedColumns);
-    if(!isNullOrUndefined(this.formElements)){
+    this.displayedColumns = this.displayedColumnsData().filter(r => r !== 'id').concat('action');
+    console.log("form Elements ----- " + this.displayedColumns);
+    console.log(this.formElements)
+    if (!isNullOrUndefined(this.formElements)) {
       this.editForm = this._commonMethoService.getFormData1(this.formElements);
       this.filteredOptions = this.myControl.valueChanges
         .pipe(
           startWith(''),
           map(value => this._filter(value)))
     }
-    
+
   }
 
   private displayedColumnsData() {
@@ -70,8 +71,8 @@ export class AutocompleteComponent implements OnInit {
     //this.index = this.listOfItems.indexOf(rowData);
     console.log(this.countries)
     const editDialog = this._dialog.open(DialogBoxesComponent, {
-      height: '400px',
-      width: '400px',
+      width: 'auto',
+      height: 'auto',
       data: { formElements: this.formElements, countries: this.countries, rowData: this.editForm, action: action }
     })
     editDialog.afterClosed().subscribe((response) => {
@@ -87,6 +88,16 @@ export class AutocompleteComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.listOfItems);
     this.dataSource.filter = filterValue.trim().toLowerCase();
     console.log(this.dataSource.filter);
+  }
+  check(columnName) {
+    if (columnName !== 'members' && columnName !== 'action') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  deleteDetails(selectedColumn,action:String){
+
   }
 
 }
